@@ -1,0 +1,4 @@
+aws:
+  sqs:
+    awsregion: eu-central-1
+    
