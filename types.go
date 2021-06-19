@@ -13,7 +13,7 @@ type RawMessage struct {
 	Body *string
 }
 
-// SqsClient provides access to AWS SQS to send and receive messages.
+// Client provides access to AWS SQS to send and receive messages.
 type Client struct {
 
 	// sqsClient a client to connect to AWS SQS.

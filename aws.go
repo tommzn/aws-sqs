@@ -19,7 +19,7 @@ func newSQSClient(conf config.Config) *sqs.SQS {
 	return sqs.New(session.Must(session.NewSession(&aws.Config{Region: awsRegion})))
 }
 
-// getAwsRegion will try to retieve AWS region from envrionment and
+// getAwsRegion will try to retieve AWS region from environment and
 // will return default region eu-central-1 if it's not set.
 func getAwsRegion() string {
 	if region, ok := os.LookupEnv("AWS_REGION"); ok {

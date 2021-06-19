@@ -12,10 +12,10 @@ func (client *Client) urlForMessageQueue(queueName string) (*string, error) {
 	}
 
 	getQueueUrlInput := &sqs.GetQueueUrlInput{QueueName: aws.String(queueName)}
-	if getQueueUrlOutput, err := client.sqsClient.GetQueueUrl(getQueueUrlInput); err == nil {
+	getQueueUrlOutput, err := client.sqsClient.GetQueueUrl(getQueueUrlInput)
+	if err == nil {
 		client.queueUrls[queueName] = *getQueueUrlOutput.QueueUrl
 		return getQueueUrlOutput.QueueUrl, nil
-	} else {
-		return nil, err
 	}
+	return nil, err
 }
