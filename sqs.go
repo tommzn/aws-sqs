@@ -1,3 +1,4 @@
+// Pacackage sqs provides publisher and receiver to interact with AWS SQS.
 package sqs
 
 import (
