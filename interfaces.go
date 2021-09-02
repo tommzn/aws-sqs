@@ -7,8 +7,8 @@ import (
 // Publisher provides message sending functionality.
 type Publisher interface {
 
-	// Send will marshal given message and try to send it to AWS SQS and
-	// will return the message id in case of successful delivering.
+	// Send will marshal given message to JSON if it's not already a byte array,
+	// try to send it to AWS SQS and will return the message id in case of successful delivering.
 	Send(interface{}, string) (*string, error)
 }
 

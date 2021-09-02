@@ -17,7 +17,12 @@ func NewPublisher(conf config.Config) Publisher {
 // If successful it returns the message id.
 func (client *Client) Send(message interface{}, queueName string) (*string, error) {
 
-	messageBody, _ := json.Marshal(message)
+	var messageBody []byte
+	if msg, ok := message.([]byte); ok {
+		messageBody = msg
+	} else {
+		messageBody, _ = json.Marshal(message)
+	}
 
 	qURL, err := client.urlForMessageQueue(queueName)
 	if err != nil {
