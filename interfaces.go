@@ -10,6 +10,11 @@ type Publisher interface {
 	// Send will marshal given message to JSON if it's not already a byte array,
 	// try to send it to AWS SQS and will return the message id in case of successful delivering.
 	Send(interface{}, string) (*string, error)
+
+	// SendAttributedMessage will marshal given message to JSON if it's not already a byte array,
+	// try to send it to AWS SQS using passed message attributes and will return the message id
+	// in case of successful delivering.
+	SendAttributedMessage(interface{}, string, map[string]string) (*string, error)
 }
 
 // Consumer provides read access to message queues in AWS SQS.

@@ -28,6 +28,11 @@ func (suite *PublisherTestSuite) TestSendMessage() {
 	suite.Nil(err2)
 	suite.NotNil(messageId2)
 	suite.Equal(3, client.sqsClient.(*sqsMock).callCount)
+
+	messageId3, err3 := client.SendAttributedMessage(message, "tzn-unittests", map[string]string{"Key1": "Val1"})
+	suite.Nil(err3)
+	suite.NotNil(messageId3)
+	suite.Equal(4, client.sqsClient.(*sqsMock).callCount)
 }
 
 func (suite *PublisherTestSuite) TestSqsIntegration() {
@@ -42,6 +47,10 @@ func (suite *PublisherTestSuite) TestSqsIntegration() {
 	messageId, err := publisher.Send(message, "tzn-unittest")
 	suite.Nil(err)
 	suite.NotNil(messageId)
+
+	messageId1, err1 := publisher.SendAttributedMessage(message, "tzn-unittest", map[string]string{"Key1": "Val1"})
+	suite.Nil(err1)
+	suite.NotNil(messageId1)
 
 	messageId2, err2 := publisher.Send(message, "xxx")
 	suite.NotNil(err2)
