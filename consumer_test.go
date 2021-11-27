@@ -22,6 +22,7 @@ func (suite *ConsumerTestSuite) TestReceiveMessage() {
 	messages, err := client.Receive("tzn-unittest")
 	suite.Nil(err)
 	suite.Len(messages, 1)
+
 	suite.Nil(client.Ack("tzn-unittest", messages[0].ReceiptHandle))
 }
 
