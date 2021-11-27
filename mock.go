@@ -39,6 +39,10 @@ func (mock *sqsMock) ReceiveMessage(input *sqs.ReceiveMessageInput) (*sqs.Receiv
 	}, nil
 }
 
+func (mock *sqsMock) DeleteMessage(input *sqs.DeleteMessageInput) (*sqs.DeleteMessageOutput, error) {
+	return &sqs.DeleteMessageOutput{}, nil
+}
+
 // GetQueueUrl will return a local generated sqs queue url.
 // If you send "error" as queue name it will return with an error message.
 func (mock *sqsMock) GetQueueUrl(input *sqs.GetQueueUrlInput) (*sqs.GetQueueUrlOutput, error) {

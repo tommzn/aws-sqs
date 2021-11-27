@@ -22,6 +22,9 @@ type Consumer interface {
 
 	// Receive will read messages from given queue in AWS SQS.
 	Receive(string) ([]RawMessage, error)
+
+	// Confirm that the message was received. This will delete this message from given queue.
+	Ack(string, *string) error
 }
 
 // sqsClient is an interface for a client interacting with AWS SQS.
@@ -32,6 +35,9 @@ type sqsClient interface {
 
 	// ReceiveMessage will try to read messages from AWS SQS.
 	ReceiveMessage(input *sqs.ReceiveMessageInput) (*sqs.ReceiveMessageOutput, error)
+
+	// DeleteMessage will try to delete passed message from given.
+	DeleteMessage(input *sqs.DeleteMessageInput) (*sqs.DeleteMessageOutput, error)
 
 	// GetQueueUrl will try to retrieve the url fr given queue from AWS SQS.
 	GetQueueUrl(input *sqs.GetQueueUrlInput) (*sqs.GetQueueUrlOutput, error)

@@ -37,3 +37,18 @@ func (client *Client) Receive(queueName string) ([]RawMessage, error) {
 	}
 	return messsages, err
 }
+
+// Confirm that the message was received. This will delete this message from given queue.
+func (client *Client) Ack(queueName string, receiptHandle *string) error {
+
+	qURL, err := client.urlForMessageQueue(queueName)
+	if err != nil {
+		return err
+	}
+
+	_, err = client.sqsClient.DeleteMessage(&sqs.DeleteMessageInput{
+		QueueUrl:      qURL,
+		ReceiptHandle: receiptHandle,
+	})
+	return err
+}
