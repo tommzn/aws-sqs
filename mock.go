@@ -26,6 +26,7 @@ func (mock *sqsMock) SendMessage(input *sqs.SendMessageInput) (*sqs.SendMessageO
 }
 
 func (mock *sqsMock) ReceiveMessage(input *sqs.ReceiveMessageInput) (*sqs.ReceiveMessageOutput, error) {
+
 	mock.callCount++
 	messageBody, _ := json.Marshal(newTestMessage())
 	return &sqs.ReceiveMessageOutput{
