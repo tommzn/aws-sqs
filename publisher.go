@@ -32,7 +32,7 @@ func (client *Client) SendAttributedMessage(message interface{}, queueName strin
 	}
 
 	sendMessageInput := &sqs.SendMessageInput{
-		MessageBody: aws.String(string(messageBody)),
+		MessageBody: aws.String(messageBody),
 		QueueUrl:    qURL,
 	}
 	if len(attributes) > 0 {
@@ -48,13 +48,15 @@ func (client *Client) SendAttributedMessage(message interface{}, queueName strin
 
 // toMessageBody converts given value to a byte array using JSON marshal.
 // If passed value is already a byte array it will be returns as it is.
-func toMessageBody(message interface{}) []byte {
-
-	if msg, ok := message.([]byte); ok {
-		return msg
-	} else {
+func toMessageBody(message interface{}) string {
+	switch v := message.(type) {
+	case []byte:
+		return string(v)
+	case string:
+		return v
+	default:
 		messageBody, _ := json.Marshal(message)
-		return messageBody
+		return string(messageBody)
 	}
 }
 
